@@ -33,9 +33,20 @@ async function run() {
     const db = client.db('CommunityCln');
     const issuesCollection = db.collection('AllIssue');
     const contributionsCollection = db.collection('mycontribute');
-
+    const myissues = db.collection('myissues');
     console.log('✅ MongoDB Connected Successfully!');
+// get on my isues
+    app.get('/allmyissues', async(req, res) => {
+   const result = await myissues.find().toArray();
+        res.send(result);
+})
 
+// post form add issue
+    app.post('/myissue', async (req, res) => {
+      const issues = req.body;
+      const result = await myissues.insertOne(issues);
+      result.send(result);
+    });
     // ✅ POST: Save contribution
     app.post('/contributions', async (req, res) => {
       try {
