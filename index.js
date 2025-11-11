@@ -125,7 +125,6 @@ async function run() {
         const result = await contributionsCollection.insertOne(contribution);
         res.status(201).send(result);
       } catch (error) {
-        console.error(error);
         res.status(500).send({ message: 'Failed to save contribution' });
       }
     });
