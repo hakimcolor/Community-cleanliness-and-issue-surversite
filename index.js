@@ -18,11 +18,26 @@ app.get('/', (req, res) => {
 // mongodb uri
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_Password}@cluster0.wcellxl.mongodb.net/?retryWrites=true&w=majority`;
 
-// mongoose connection
-mongoose
-  .connect(uri, { dbName: 'CommunityCln' })
-  .then(() => console.log('Mongoose Connected Successfully!'))
-  .catch((err) => console.error('Mongoose connection failed:', err));
+// mongoose connection — cached for serverless (vercel)
+let isConnected = false;
+
+async function connectDB() {
+  if (isConnected) return;
+  await mongoose.connect(uri, { dbName: 'CommunityCln' });
+  isConnected = true;
+  console.log('Mongoose Connected Successfully!');
+}
+
+// middleware to ensure db is connected before any request
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('Mongoose connection failed:', err);
+    res.status(500).json({ message: 'Database connection failed' });
+  }
+});
 
 // firebase setup
 // const serviceAccount = require('./surviceKey.json');
