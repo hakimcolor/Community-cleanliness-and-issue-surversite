@@ -1,7 +1,4 @@
 node_modules
-
-
-
+.env
 .vercel
 config.bat
-node_modules
