@@ -61,7 +61,7 @@ app.get('/latest-data', async (req, res) => {
   }
 });
 
-// put: update my issue byid
+// put: update my issue id
 app.put('/myissues/:id', async (req, res) => {
   const id = req.params.id;
   const updatedData = req.body;
