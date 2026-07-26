@@ -49,7 +49,7 @@ app.use(async (req, res, next) => {
 //   });
 // }
 
-// mongoose schemas and models
+// mongoose schemas and models...
 
 // AllIssue collection
 const issueSchema = new mongoose.Schema({}, { strict: false });
