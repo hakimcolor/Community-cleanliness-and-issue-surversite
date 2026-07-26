@@ -34,8 +34,10 @@ app.use(async (req, res, next) => {
     await connectDB();
     next();
   } catch (err) {
-    console.error('Mongoose connection failed:', err);
-    res.status(500).json({ message: 'Database connection failed' });
+    console.error('Mongoose connection failed:', err.message);
+    res
+      .status(500)
+      .json({ message: 'Database connection failed', error: err.message });
   }
 });
 
