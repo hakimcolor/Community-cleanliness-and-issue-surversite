@@ -10,9 +10,9 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-// root route
+// root routes
 app.get('/', (req, res) => {
-  res.send('Server is running fine....');
+  res.send('Server is running fine. ... And HoW aRe U maN..!');
 });
 
 // mongodb uri
